@@ -20,7 +20,7 @@ then
         echo "Installing MYSQL ... SUCCESS"
     fi
 else
-echo " MYSQL is already ... Installed"
+    echo " MYSQL is already ... Installed"
 fi
 
 # dnf install mysql -y
@@ -32,3 +32,17 @@ fi
 #     echo "Installing MYSQL ... SUCCESS"
 # fi
  
+dnf list installed git
+if [ $? -ne 0]
+then
+    dnf install git -y
+    if [$? -ne 0]
+    then
+        "Installing Git ... Failure"
+        exit 
+    else
+        "Installing Git ... SUCCESS"
+    fi
+else 
+    echo "Git is already ... Installed"
+fi
