@@ -9,7 +9,7 @@ N="\e[0m"
 mkdir -p /var/log/shellscript-logs
 
 LOGS_FOLDER="/var/log/shellscript-logs"
-LOG_FILE=$(echo $0 | cut -d "." f1)
+LOG_FILE=$(echo $0 | cut -d "." -f1)
 TIMESTAMP=$(date +%Y-%m-%d-%H-%M-%S)
 LOG_FILE_NAME="$LOGS_FOLDER/$LOG_FILE-$TIMESTAMP.log"
 
@@ -48,5 +48,5 @@ then
     dnf install git -y &>>$LOG_FILE_NAME
     VALIDATE $? "Installing Git"
 else
-    echo -e "Git is already  ... $Y $N Installed"
+    echo -e "Git is already  ... $Y Installed $N"
 fi
