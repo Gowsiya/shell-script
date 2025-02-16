@@ -26,6 +26,6 @@ then
     VALIDATE $? "Installing Mysql"
 else
     echo "Mysql is already ... Installed"
-
+fi
 
 
