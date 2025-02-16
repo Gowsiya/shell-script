@@ -2,7 +2,7 @@
 
 USERID=$(id -u)
 
-if [ $USERID -eq 0 ]
+if [ $USERID -ne 0 ]
 then
     echo "ERROR: User must have root access to execute this command"
     exit 1
