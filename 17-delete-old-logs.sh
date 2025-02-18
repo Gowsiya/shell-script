@@ -24,6 +24,8 @@ echo "Files to be deleted: $FILES_TO_BE_DELETED"
 
 while read -r filepath
 do
-    echo $filepath
+    echo "Delting file: $filepath"
+    rm -rf $filepath
+    echo "Deleted file: $filepath" 
 done <<<$FILES_TO_BE_DELETED
 
