@@ -15,16 +15,17 @@ USERID=$(id -u)
 if [ $USERID -ne 0 ]
 then
     echo "ERROR: User must have root access to execute this command"
+    exit 1
 fi
 
 echo "Script started executing at: $TIMESTAMP" >>$LOG_FILE_NAME
 
 FILES_TO_BE_DELETED=$(find $SOURCE_PATH -name "*.log" -mtime +30)
+
 echo "Files to be deleted: $FILES_TO_BE_DELETED"
 
 while read -r filepath
 do
-    echo "Delting file: $filepath" >>$LOG_FILE_NAME
     rm -rf $filepath
     echo "Deleted file: $filepath" 
 done <<<$FILES_TO_BE_DELETED
