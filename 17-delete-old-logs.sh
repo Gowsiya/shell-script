@@ -11,7 +11,13 @@ LOG_FILE=$(echo $0 | cut -d "." f)
 TIMESTAMP=$(date +%Y-%m-%d-%H-%M-%S)
 LOG_FILE_NAME=LOGS_FOLDER/$LOG_FILE-$TIMESTAMP.log
 
-echo "Script started executing at: $TIMESTAMP"
+USERID=$(id -u)
+if [ $USERID -ne 0 ]
+then
+    echo "ERROR: User must have root access to execute this command"
+fi
+
+echo "Script started executing at: $TIMESTAMP" >>$LOG_FILE_NAME
 
 FILES_TO_BE_DELETED=$(find $SOURCE_PATH -name "*.log" -mtime +30)
 echo "Files to be deleted: $FILES_TO_BE_DELETED"
