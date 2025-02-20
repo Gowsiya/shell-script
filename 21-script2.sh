@@ -1,5 +1,5 @@
 #!/bin/bash
 
-MSG=SCRIPT
+MSG=SCRIPT2
 
 echo "Hello From $MSG"
