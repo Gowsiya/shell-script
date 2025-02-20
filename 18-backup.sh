@@ -46,7 +46,7 @@ then
     echo "Files are: $FILES"
     ZIP_FILE=app-logs-$TIMESTAMP.zip
     find $SOURCE_DIR -name "*.log" -mtime +$DAYS | zip -@ "$ZIP_FILE"
-    if [ -f $ZIP_FILE ]
+    if [ -n $ZIP_FILE ]
     then
         echo "succesfully compressed the files older than $DAYS"
         while read -r filepath
@@ -56,9 +56,7 @@ then
             echo "Deleted files: $filepath
         done <<< $FILES
     else
-        echo "Failed to created zip file"
-        exit 1
-    fi
+        echo "Failed to create zipfile"
 else
     echo "No files are older than $DAYS"
 fi
