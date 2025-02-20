@@ -15,14 +15,51 @@ TIMESTAMP=$(date +%Y-%m-%d-%H-%M-%S)
 LOG_FILE_NAME=$LOGS_FOLDER/$LOG_FILE-$TIMESTAMP.log
 
 USAGE () {
-    echo " USAGE :: backup <SOURCE_DIR> <DES_DIR> <Days(optional)>"
+    echo " USAGE :: backup <SOURCE_DIR> <DEST_DIR> <Days(optional)>"
     exit 1
 }
 
-echo "Script started executing at: $TIMESTAMP"
 
 if [ $# -lt 2 ]
 then
     USAGE
+fi
+
+if [ ! -d "$SOURCE_DIR" ]
+then
+    echo "$SOURCE_DIR doesn't exist ... Please check"
+    exit
+fi
+
+if [ ! -d $DEST_DIR ]
+then
+    echo "$DEST_DIR doesn't exist ... Please check"
+    exit
+fi
+
+echo "Script started executing at: $TIMESTAMP"
+
+FILES=$(find $SOURCE_DIR -name "*.log" -mtime +$DAYS)
+
+if [ -f "$FILES" ]
+then
+    echo "Files are: $FILES"
+    ZIP_FILE=app-logs-$TIMESTAMP.zip
+    find $SOURCE_DIR -name "*.log" -mtime +$DAYS | zip -@ "$ZIP_FILE"
+    if [ -f $ZIP_FILE ]
+    then
+        echo "succesfully compressed the files older than $DAYS"
+        while read -r filepath
+        do
+            echo "Deleting file: $filepath"
+            rm -rf $filepath
+            echo "Deleted files: $filepath
+        done <<< $FILES
+    else
+        echo "Failed to created zip file"
+        exit 1
+    fi
+else
+    echo "No files are older than $DAYS"
 fi
 
