@@ -2,4 +2,4 @@
 
 MSG=SCRIPT2
 
-echo "Hello From $MSG"
+echo "Hello From : $MSG"
